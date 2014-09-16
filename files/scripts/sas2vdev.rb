@@ -5,8 +5,8 @@ require 'pp'
 
 VDEV_PREFIX = 'd'
 
-unless system('which sas2ircu')
-  puts "sas2ircu: command not found"
+unless system('which sas2ircu &>/dev/null')
+  puts "ERROR: command not found - sas2ircu"
   exit 1
 end
 
