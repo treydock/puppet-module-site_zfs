@@ -19,14 +19,32 @@ describe 'site_zfs' do
       })
     end
 
+    it do
+      should contain_package('simplesnap').with({
+        :ensure   => 'installed',
+        :require  => nil,
+      })
+    end
+
+    it do
+      should contain_package('zfsnap').with({
+        :ensure   => 'installed',
+        :require  => nil,
+      })
+    end
+
     context "when ensure => 'absent'" do
       let(:params) {{ :ensure => 'absent' }}
       it { should contain_package('sas2ircu').with_ensure('absent') }
+      it { should contain_package('simplesnap').with_ensure('absent') }
+      it { should contain_package('zfsnap').with_ensure('absent') }
     end
 
     context "when package_require => 'Yumrepo[foo]'" do
       let(:params) {{ :package_require => 'Yumrepo[foo]' }}
       it { should contain_package('sas2ircu').with_require('Yumrepo[foo]') }
+      it { should contain_package('simplesnap').with_require('Yumrepo[foo]') }
+      it { should contain_package('zfsnap').with_require('Yumrepo[foo]') }
     end
   end
 

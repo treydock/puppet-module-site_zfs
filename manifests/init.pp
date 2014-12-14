@@ -4,6 +4,8 @@ class site_zfs (
   $ensure = 'present',
   $package_require = undef,
   $sas2ircu_ensure = 'UNSET',
+  $simplesnap_ensure = 'UNSET',
+  $zfsnap_ensure = 'UNSET',
   $mk_vdev_alias_ensure = 'UNSET',
   $sas2vdev_ensure = 'UNSET',
 ) {
