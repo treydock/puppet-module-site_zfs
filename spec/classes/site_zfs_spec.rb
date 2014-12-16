@@ -71,10 +71,26 @@ describe 'site_zfs' do
       })
     end
 
+    it do
+      should contain_file('/usr/local/sbin/remote_zfs.sh').with({
+        :ensure   => 'absent',
+        :source   => 'puppet:///modules/site_zfs/scripts/remote_zfs.sh',
+        :owner    => 'root',
+        :group    => 'root',
+        :mode     => '0755',
+      })
+    end
+
+    context "when enable_zfs_send => true" do
+      let(:params) {{ :enable_zfs_send => true }}
+      it { should contain_file('/usr/local/sbin/remote_zfs.sh').with_ensure('file') }
+    end
+
     context "when ensure => 'absent'" do
       let(:params) {{ :ensure => 'absent' }}
       it { should contain_file('/usr/local/sbin/mk_vdev_alias.rb').with_ensure('absent') }
       it { should contain_file('/usr/local/sbin/sas2vdev.rb').with_ensure('absent') }
+      it { should contain_file('/usr/local/sbin/remote_zfs.sh').with_ensure('absent') }
     end
   end
 

@@ -15,11 +15,11 @@ class site_zfs::config {
   }
 
   file { '/usr/local/sbin/mk_vdev_alias.rb':
-    ensure  => $mk_vdev_alias_ensure,
-    source  => 'puppet:///modules/site_zfs/scripts/mk_vdev_alias.rb',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
+    ensure => $mk_vdev_alias_ensure,
+    source => 'puppet:///modules/site_zfs/scripts/mk_vdev_alias.rb',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
   }
 
   file { '/usr/local/sbin/sas2vdev.rb':
@@ -29,6 +29,14 @@ class site_zfs::config {
     group   => 'root',
     mode    => '0755',
     require => Package['sas2ircu'],
+  }
+
+  file { '/usr/local/sbin/remote_zfs.sh':
+    ensure => $site_zfs::remote_zfs_file_ensure,
+    source => 'puppet:///modules/site_zfs/scripts/remote_zfs.sh',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
   }
 
 }

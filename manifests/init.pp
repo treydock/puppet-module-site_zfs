@@ -8,6 +8,7 @@ class site_zfs (
   $zfsnap_ensure = 'UNSET',
   $mk_vdev_alias_ensure = 'UNSET',
   $sas2vdev_ensure = 'UNSET',
+  $enable_zfs_send = false,
 ) {
 
   case $ensure {
@@ -22,6 +23,14 @@ class site_zfs (
     default: {
       fail("${module_name}: ensure parameter must be 'present' or 'absent', ${ensure} given.")
     }
+  }
+
+  validate_bool($enable_zfs_send)
+
+  if $enable_zfs_send {
+    $remote_zfs_file_ensure = $file_default_ensure
+  } else {
+    $remote_zfs_file_ensure = 'absent'
   }
 
   anchor { 'site_zfs::begin': }->
